@@ -1,7 +1,7 @@
 import discord
 
 def main():
-    print("f")
+    pass
 
 
 
