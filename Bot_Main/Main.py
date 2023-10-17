@@ -1,6 +1,6 @@
 import discord
 
-TOKEN = "MTE2MzU2NDIzMjU1NDU5NDQzNw.G-ew3i.U_KaH3NtCY0SQ0fITX6JVDntp7dgTYebJjXBSc"
+TOKEN = "Your token"
 
 
 
