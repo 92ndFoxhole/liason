@@ -27,11 +27,11 @@ class BotCommands(commands.Cog):
 
     @commands.command()
     async def inactive(self, ctx, member: discord.Member, giveReason = "No reason given"):
-        #not finished
-        membersRoles = member.roles
-        for i in range(1, len(member.roles)):
-            print(membersRoles)
-            await member.remove_roles(member.roles[i], reason=giveReason)
+        for i in member.roles:
+            try:
+                await member.remove_roles(i)
+            except:
+                print(f"Can't remove the role {i}")
         await member.add_roles(self.recruit, reason=giveReason)
         
     
