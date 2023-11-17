@@ -38,7 +38,7 @@ class BotCommands(commands.Cog):
     
     
     @commands.command()
-    async def leaveOfAbstinence(self, ctx, member: discord.Member, giveReason = "No reason given"):
+    async def leaveOfAbsence(self, ctx, member: discord.Member, giveReason = "No reason given"):
         pass 
     
     @commands.command()
@@ -46,7 +46,7 @@ class BotCommands(commands.Cog):
     async def massDemotion(self, ctx, inactiveWars):
         
         if inactiveWars != int:
-            raise TypeError("Inactive wars is an interger")
+            raise TypeError("Inactive wars is an integer")
         if inactiveWars == 0:
             ctx.send("Would mark everyone as inactive.")
     
