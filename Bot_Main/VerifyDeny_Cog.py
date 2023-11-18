@@ -15,12 +15,15 @@ class BotCommands(commands.Cog):
         self.discussion = self.guild.get_channel(1174553795699671151)
         self.verifcationChannel = self.guild.get_channel(1174552689280045106)
         self.roleAssignment = self.guild.get_channel(1174559644115546232)
-    
+        
+    @commands.has_permissions(manage_roles=True)
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"Logged in as {self.bot.user} (ID: {self.bot.user.id})")
         print("------")
-        self.idPusher() #Note here that idpusher is not called in init because to use get_role/chennel you have to connect to discord servers first.
+        self.idPusher() #Note here that idpusher is not called in init because to use get_role you have to connect to discord server first.
+        
+    @commands.has_permissions(manage_roles=True)    
     @commands.command()
     async def deny(self, ctx, member: discord.Member, giveReason = "Denied"):
         
@@ -28,7 +31,7 @@ class BotCommands(commands.Cog):
         await member.remove_roles(self.recruit, reason=giveReason)
         await self.verifcationChannel.send(member.display_name + " Has been denied reason: " + giveReason)
             
-
+    @commands.has_permissions(manage_roles=True)
     @commands.command()
     async def verify(self, ctx, member: discord.Member, giveReason = "Verified"):
         

@@ -12,19 +12,19 @@ class BotCommands(commands.Cog):
         self.recruit = self.guild.get_role(1174547968796393494)
 
     
-    
+    @commands.has_permissions(manage_roles=True)
     @commands.Cog.listener()
     async def on_ready(self):
         self.idPusher()
         
-        
+    @commands.has_permissions(manage_roles=True)
     @commands.command()
     async def active(self, ctx, member: discord.Member, giveReason = "No reason given"):
         pass
         
         
             
-
+    @commands.has_permissions(manage_roles=True)
     @commands.command()
     async def inactive(self, ctx, member: discord.Member, giveReason = "No reason given"):
         for i in member.roles:
@@ -36,13 +36,13 @@ class BotCommands(commands.Cog):
         
     
     
-    
+    @commands.has_permissions(manage_roles=True)
     @commands.command()
     async def leaveOfAbsence(self, ctx, member: discord.Member, giveReason = "No reason given"):
         pass 
     
-    @commands.command()
     @commands.is_owner()
+    @commands.command()
     async def massDemotion(self, ctx, inactiveWars):
         
         if inactiveWars != int:
