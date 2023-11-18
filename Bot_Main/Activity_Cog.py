@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
 
-intents = discord.Intents.all()
-
 class BotCommands(commands.Cog):
     
     def __init__(self, bot):
@@ -40,8 +38,8 @@ class BotCommands(commands.Cog):
 
         try:
             # Reset active wars on database for member
-            await payload.member.remove_roles(self.recruit, "Verified active")
-            pass # Use await here then add whatever the function for doing that is here
+            await payload.member.remove_roles(self.inactiveRole)
+            
             
         except discord.HTTPException:
             
