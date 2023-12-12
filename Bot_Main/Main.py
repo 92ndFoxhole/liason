@@ -16,5 +16,7 @@ bot = commands.Bot(
 
 bot.load_extension("VerifyDeny_Cog")
 bot.load_extension("Activity_Cog")
+#Template cog
+bot.load_extension("Template_Cog")
 
 bot.run("TOKEN")
