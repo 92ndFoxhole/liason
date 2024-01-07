@@ -1,23 +1,14 @@
-import discord
+import discord, json
 from discord.ext import commands
 
 class BotCommands(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
-        
-    def idPusher(self):
-        self.guild = self.bot.get_guild(1163561993530253375)  
-        self.recruit = self.guild.get_role(1174547968796393494)
-        self.activityChannel = self.guild.get_channel(1175517710587809792) 
-        self.inactiveRole = self.guild.get_role(1175517567641727046)
         self.message_id = None
     
     
-    
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.idPusher()
+ 
 
     
     @commands.Cog.listener()
@@ -38,7 +29,10 @@ class BotCommands(commands.Cog):
 
         try:
             # Reset active wars on database for member
-            await payload.member.remove_roles(self.inactiveRole)
+            with open("constants.json", "r") as constants:
+                data = json.load(constants)
+                inactive_Role = data["inactive_Role"]
+                await payload.member.remove_roles(discord.Object(id=inactive_Role))
             
             
         except discord.HTTPException:
@@ -50,30 +44,43 @@ class BotCommands(commands.Cog):
     @commands.command()
     async def newWar(self, ctx):
         #increase inactive wars by 1
-        message = await self.activityChannel.send("Activity message, react to be marked active for this war.")
-        self.message_id = message.id
-        print()
-        for member in self.guild.members:
-            await member.add_roles(self.inactiveRole) #Should work but for some reason guild.members only returns the bot. WIP
+        with open("constants.json", "r") as constants:
+            data = json.load(constants)
+            inactive_Role = data["inactive_Role"]
+            activity_Channel = data["activity_Channel"]
+            activity_Channel = await self.bot.fetch_channel(activity_Channel)
+            message = await activity_Channel.send("Activity message, react to be marked active for this war.")
+            self.message_id = message.id
+            for member in ctx.guild.members:
+                await member.add_roles(discord.Object(id=inactive_Role)) 
         
         
     
     @commands.has_permissions(manage_roles=True)
     @commands.command()
     async def active(self, ctx, member: discord.Member, giveReason = "No reason given"):
-        pass
-        
+        with open("constants.json", "r") as constants:
+            data = json.load(constants)
+            inactive_Role = data["inactive_Role"]
+            await member.remove_roles(discord.Object(id=inactive_Role))
+    @commands.has_permissions(manage_roles=True)
+    @commands.command()
+    async def active(self, ctx, member: discord.Member, giveReason = "No reason given"):
+        with open("constants.json", "r") as constants:
+            data = json.load(constants)
+            inactive_Role = data["inactive_Role"]
+            await member.add_roles(discord.Object(id=inactive_Role))
         
             
     @commands.has_permissions(manage_roles=True)
     @commands.command()
-    async def inactive(self, ctx, member: discord.Member, giveReason = "No reason given"):
+    async def derole(self, ctx, member: discord.Member, giveReason = "No reason given"):
         for i in member.roles:
             try:
                 await member.remove_roles(i)
             except:
                 print(f"Can't remove the role {i}")
-        await member.add_roles(self.recruit, reason=giveReason)
+        
         
     
     
