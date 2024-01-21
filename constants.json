@@ -1,0 +1,14 @@
+{
+    "guild": 1163561993530253375,
+    "cadet_Role": 1174541862204342282,
+    "member_Role": 1174535263578497125,
+    "recruit_Role" : 1174547968796393494,
+    "discussion_Channel": 1174553795699671151,
+    "roleAssignment_Channel": 1174559644115546232,  
+    "activity_Channel": 1175517710587809792,
+    "inactive_Role": 1175517567641727046,
+    "supportChannel_id": 1195931149176950965,
+    "_comment_": "Stockpile Code Cog begins below this line",
+    "stockpileMessage_id": 1195933427212492860,
+    "stockpileChannel_id": 1195926825512214528
+}
